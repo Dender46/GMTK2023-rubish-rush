@@ -13,24 +13,30 @@ public class RoadGeneration : MonoBehaviour
     [SerializeField] bool m_Demo_ShowDebugLog = true;
     [SerializeField] float m_Demo_WaitForSeconds = 1;
 
+    // We remember last turn so that road in the future might not lead into itself
     enum TurnDirection {Left, Right};
     TurnDirection m_LastTurn = TurnDirection.Left;
 
     Transform m_RoadBuilder;
-    Vector3 m_NextIterationPos = Vector3.forward;
+    Transform m_RoadsContainer;
 
     IEnumerator Start()
     {
-        m_RoadBuilder = new GameObject("RoadBuilder").transform;
-        m_RoadBuilder.position = m_NextIterationPos * 3.0f;
+        m_RoadsContainer = new GameObject("RoadsContainer").transform;
+        m_RoadsContainer.SetParent(transform);
 
-        int i = 0;
-        while (i++ < m_RoadDistance)
+        m_RoadBuilder = new GameObject("RoadBuilder").transform;
+        m_RoadBuilder.SetParent(transform);
+
+        // First road
+        Instantiate(m_RoadStraightPrefab, m_RoadsContainer);
+        m_RoadBuilder.position += m_RoadBuilder.forward * 3.0f;
+
+        for (int i = 0; i < m_RoadDistance; i++)
         {
             bool shouldTurn = Random.Range(0.0f, 1.0f) < m_ChanceOfTurning;
             // Spawn and new road on the next iteration tile
             var roadInstance = Instantiate(shouldTurn ? m_RoadTurnPrefab : m_RoadStraightPrefab, m_RoadBuilder, false);
-
             yield return WaitWithDebugMessage("Spawned new road in builder");
             
             if (shouldTurn)
@@ -45,7 +51,7 @@ public class RoadGeneration : MonoBehaviour
                 yield return WaitWithDebugMessage("Set correct rotation for a turn road");
 
                 // Place road in the world space before rotating builder
-                roadInstance.transform.SetParent(null, true);
+                roadInstance.transform.SetParent(m_RoadsContainer, true);
 
                 m_RoadBuilder.Rotate(Vector3.up, currentTurn == TurnDirection.Left ? -90.0f : 90.0f);
                 yield return WaitWithDebugMessage("Rotated builder");
@@ -53,12 +59,11 @@ public class RoadGeneration : MonoBehaviour
                 m_LastTurn = currentTurn;
             }
 
-            // Place road in the world space
-            roadInstance.transform.SetParent(null, true);
+            // Place road from RoadBuilder space in to the world space
+            roadInstance.transform.SetParent(m_RoadsContainer, true);
             yield return WaitWithDebugMessage("Placed tile in a world space");
 
             m_RoadBuilder.position += m_RoadBuilder.forward * 3.0f;
-
             yield return WaitWithDebugMessage("Moved builder forward");
         }
     }
@@ -70,10 +75,5 @@ public class RoadGeneration : MonoBehaviour
             Debug.Log(debugMessage);
             yield return new WaitForSeconds(m_Demo_WaitForSeconds);
         }
-    }
-
-    void Update()
-    {
-        
     }
 }
