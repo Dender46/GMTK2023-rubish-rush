@@ -10,7 +10,8 @@ public class RoadGeneration : MonoBehaviour
     [SerializeField] int m_RoadDistance = 20;
     [SerializeField] float m_ChanceOfTurning = 0.5f;
     [Header("Demo")]
-    [SerializeField] float m_Demo_WaitForSeconds = 2;
+    [SerializeField] bool m_Demo_ShowDebugLog = true;
+    [SerializeField] float m_Demo_WaitForSeconds = 1;
 
     enum TurnDirection {Left, Right};
     TurnDirection m_LastTurn = TurnDirection.Left;
@@ -29,9 +30,8 @@ public class RoadGeneration : MonoBehaviour
             bool shouldTurn = Random.Range(0.0f, 1.0f) < m_ChanceOfTurning;
             // Spawn and new road on the next iteration tile
             var roadInstance = Instantiate(shouldTurn ? m_RoadTurnPrefab : m_RoadStraightPrefab, m_RoadBuilder, false);
-            
-            Debug.Log("Spawned new road in builder");
-            yield return new WaitForSeconds(m_Demo_WaitForSeconds);
+
+            yield return WaitWithDebugMessage("Spawned new road in builder");
             
             if (shouldTurn)
             {
@@ -42,27 +42,32 @@ public class RoadGeneration : MonoBehaviour
                     1.0f,
                     1.0f
                 );
-                Debug.Log("Set correct rotation for a turn road");
-                yield return new WaitForSeconds(m_Demo_WaitForSeconds);
+                yield return WaitWithDebugMessage("Set correct rotation for a turn road");
 
                 // Place road in the world space before rotating builder
                 roadInstance.transform.SetParent(null, true);
 
                 m_RoadBuilder.Rotate(Vector3.up, currentTurn == TurnDirection.Left ? -90.0f : 90.0f);
-                Debug.Log("Rotated builder");
-                yield return new WaitForSeconds(m_Demo_WaitForSeconds);
+                yield return WaitWithDebugMessage("Rotated builder");
 
                 m_LastTurn = currentTurn;
             }
 
             // Place road in the world space
             roadInstance.transform.SetParent(null, true);
-            Debug.Log("Placed tile in a world space");
-            yield return new WaitForSeconds(m_Demo_WaitForSeconds);
+            yield return WaitWithDebugMessage("Placed tile in a world space");
 
             m_RoadBuilder.position += m_RoadBuilder.forward * 3.0f;
 
-            Debug.Log("Moved builder forward");
+            yield return WaitWithDebugMessage("Moved builder forward");
+        }
+    }
+
+    IEnumerator WaitWithDebugMessage(string debugMessage)
+    {
+        if (m_Demo_ShowDebugLog)
+        {
+            Debug.Log(debugMessage);
             yield return new WaitForSeconds(m_Demo_WaitForSeconds);
         }
     }

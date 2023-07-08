@@ -356,18 +356,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoadGeneration
       objectReference: {fileID: 0}
-    - target: {fileID: 7474121217170794097, guid: ada6ca59f43d05c4eaded55c4ec77553, type: 3}
-      propertyPath: m_RoadDistance
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 7474121217170794097, guid: ada6ca59f43d05c4eaded55c4ec77553, type: 3}
-      propertyPath: m_ChanceOfTurning
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7474121217170794097, guid: ada6ca59f43d05c4eaded55c4ec77553, type: 3}
-      propertyPath: m_Demo_WaitForSeconds
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ada6ca59f43d05c4eaded55c4ec77553, type: 3}
 --- !u!1001 &4222538827006133009
@@ -481,10 +469,6 @@ PrefabInstance:
     - target: {fileID: 1711608075181078575, guid: d119bffa9187ff9479e48da36773b111, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8651088446769223619, guid: d119bffa9187ff9479e48da36773b111, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d119bffa9187ff9479e48da36773b111, type: 3}
