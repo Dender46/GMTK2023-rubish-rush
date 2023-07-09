@@ -43,9 +43,7 @@ public class GarbageThrowerController : MonoBehaviour
                 Vector3 displacementXZ = new Vector3(hitInfo.point.x - spawnPos.x, 0.0f, hitInfo.point.z - spawnPos.z);
                 
                 // We need this because if we aim too high for a variable m_H - equation will be wrong
-                Debug.Log("displacementY" + displacementY);
                 var correctedH = displacementY > m_H ? displacementY : m_H;
-                Debug.Log("correctedH" + correctedH);
 
                 Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2.0f * m_Gravity * correctedH);
                 Vector3 velocityXZ = displacementXZ 

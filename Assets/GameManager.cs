@@ -31,10 +31,10 @@ public class GameManager : MonoBehaviour
         switch (type)
         {
             case PointsType.Regular:
-                newAdditionalPoints= instance.m_PointsRegular;
+                newAdditionalPoints = instance.m_PointsRegular;
                 break;
             case PointsType.Window:
-                newAdditionalPoints= instance.m_PointsWindow;
+                newAdditionalPoints = instance.m_PointsWindow;
                 break;
         }
 
