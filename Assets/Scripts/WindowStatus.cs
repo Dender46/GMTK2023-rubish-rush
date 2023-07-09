@@ -4,6 +4,7 @@ using UnityEngine;
 public class WindowStatus : MonoBehaviour
 {
     [SerializeField] List<Material> m_ShatteredGlassMats;
+    [SerializeField] List<AudioClip> m_Sounds;
 
     bool m_IsShattered = false;
     public void Shatter()
@@ -18,6 +19,13 @@ public class WindowStatus : MonoBehaviour
 
         GameManager.ShowBonusText(transform.position);
 
+        PLaySound();
+
         m_IsShattered = true;
+    }
+    void PLaySound()
+    {
+        var sound = m_Sounds[Random.Range(0, m_Sounds.Count)];
+        GetComponent<AudioSource>().PlayOneShot(sound);
     }
 }
