@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class OnImpact : MonoBehaviour
 {
+    [SerializeField] bool m_ShouldDestroy = true;
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Window")
@@ -28,6 +30,7 @@ public class OnImpact : MonoBehaviour
 
     void DestroyThis()
     {
-        Destroy(gameObject);
+        if (m_ShouldDestroy)
+            Destroy(gameObject);
     }
 }
