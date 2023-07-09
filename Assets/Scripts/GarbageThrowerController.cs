@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GarbageThrowerController : MonoBehaviour
 {
@@ -6,18 +7,28 @@ public class GarbageThrowerController : MonoBehaviour
     [SerializeField] float m_H = 20.0f;
     [SerializeField] float m_Gravity = -18.0f;
     [SerializeField] float m_MaxDistanceRaycast = 20.0f;
+    [SerializeField] float m_ReloadTime = 2.0f;
 
+    Image m_ReticleImage;
     Transform m_GarbageBagParentContainer;
+    float m_ReloadCooldown = 0.0f;
 
     void Start()
     {
+        m_ReticleImage = GameObject.Find("Reticle").GetComponent<Image>();
+
         Physics.gravity = Vector3.up * m_Gravity;
         m_GarbageBagParentContainer = new GameObject("C_GarbageBags").transform;
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        m_ReloadCooldown -= Time.deltaTime;
+        m_ReloadCooldown = Mathf.Max(0.0f, m_ReloadCooldown);
+
+        m_ReticleImage.fillAmount = (m_ReloadTime - m_ReloadCooldown) / m_ReloadTime;
+
+        if (Input.GetButtonDown("Fire1") && m_ReloadCooldown == 0.0f)
         {
             var cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
@@ -42,8 +53,9 @@ public class GarbageThrowerController : MonoBehaviour
                     + Mathf.Sqrt(2.0f * (displacementY - correctedH) / m_Gravity));
 
                 rb.velocity = velocityXZ + velocityY;
-            } 
 
+                m_ReloadCooldown = m_ReloadTime;
+            } 
         }
     }
 }
