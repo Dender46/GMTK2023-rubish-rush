@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class FollowObject : MonoBehaviour
 {
     [SerializeField] private Transform m_FollowObject;
