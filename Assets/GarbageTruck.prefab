@@ -2294,6 +2294,7 @@ MonoBehaviour:
   m_H: 0.45
   m_Gravity: -18
   m_MaxDistanceRaycast: 12
+  m_ReloadTime: 0.5
 --- !u!1 &4294033908557036525
 GameObject:
   m_ObjectHideFlags: 0
