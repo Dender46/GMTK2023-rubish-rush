@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6189092043517359807}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: House1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,9 +83,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4045198990701961575, guid: bba39f1cd96d4d342b062c09facf5a52, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bba39f1cd96d4d342b062c09facf5a52, type: 3}
       propertyPath: m_Name
       value: house_type02
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bba39f1cd96d4d342b062c09facf5a52, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bba39f1cd96d4d342b062c09facf5a52, type: 3}

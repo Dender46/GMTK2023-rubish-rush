@@ -5,6 +5,7 @@ public class GarbageThrowerController : MonoBehaviour
     [SerializeField] GameObject m_GarbageBagPrefab;
     [SerializeField] float m_H = 20.0f;
     [SerializeField] float m_Gravity = -18.0f;
+    [SerializeField] float m_MaxDistanceRaycast = 20.0f;
 
     Transform m_GarbageBagParentContainer;
 
@@ -20,7 +21,7 @@ public class GarbageThrowerController : MonoBehaviour
         {
             var cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
-            if (Physics.Raycast(cameraRay, out hitInfo))
+            if (Physics.Raycast(cameraRay, out hitInfo, m_MaxDistanceRaycast, LayerMask.GetMask("Building")))
             {
                 var spawnPos = transform.position + transform.up * 0.6f;
                 var newBag = Instantiate(m_GarbageBagPrefab, spawnPos, Quaternion.identity, m_GarbageBagParentContainer);
@@ -30,7 +31,7 @@ public class GarbageThrowerController : MonoBehaviour
                 float displacementY = hitInfo.point.y - spawnPos.y;
                 Vector3 displacementXZ = new Vector3(hitInfo.point.x - spawnPos.x, 0.0f, hitInfo.point.z - spawnPos.z);
                 
-                // We need thism because if we aim too high for a variable m_H - equation will be wrong
+                // We need this because if we aim too high for a variable m_H - equation will be wrong
                 var correctedH = displacementY > 1.0f ? m_H + (displacementY - 1.0f) : m_H;
 
                 Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2.0f * m_Gravity * correctedH);
