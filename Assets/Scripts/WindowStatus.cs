@@ -16,6 +16,8 @@ public class WindowStatus : MonoBehaviour
         var randomMaterial = m_ShatteredGlassMats[Random.Range(0, m_ShatteredGlassMats.Count)];
         GetComponent<MeshRenderer>().material = randomMaterial;
 
+        GameManager.ShowBonusText(transform.position);
+
         m_IsShattered = true;
     }
 }

@@ -11,11 +11,13 @@ public class GameManager : MonoBehaviour
     [Header("Points")]
     [SerializeField] int m_PointsRegular = 50;
     [SerializeField] int m_PointsWindow = 125;
+    [Header("BonusPoints")]
+    [SerializeField] GameObject m_BonusTextPrefab;
 
     int m_TotalPoints = 0;
     TMP_Text m_PointsText;
 
-    static GameManager instance;
+    public static GameManager instance;
 
     void Start()
     {
@@ -38,5 +40,14 @@ public class GameManager : MonoBehaviour
 
         instance.m_TotalPoints += newAdditionalPoints;
         instance.m_PointsText.text = "Score: " + instance.m_TotalPoints;
+    }
+
+    static public void ShowBonusText(Vector3 worldPosition)
+    {
+        var rectTransform = GameObject.Find("Canvas").GetComponent<RectTransform>();
+        var bonusText = Instantiate(instance.m_BonusTextPrefab, GameObject.Find("Canvas").transform);
+        Vector2 viewportPosition = Camera.main.WorldToViewportPoint(worldPosition);
+        Vector2 finalPosition = new Vector2(viewportPosition.x * rectTransform.sizeDelta.x, viewportPosition.y * rectTransform.sizeDelta.y);
+        bonusText.transform.position = finalPosition;
     }
 }

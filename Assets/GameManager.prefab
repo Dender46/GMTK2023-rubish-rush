@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ef8dab67ad866409153a028081e10c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PointsRegular: 50
+  m_PointsWindow: 125
+  m_BonusTextPrefab: {fileID: 1295798060763088874, guid: d0a5174b70bd63d439a91fba51f94615, type: 3}
