@@ -373,7 +373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5561405860441761023, guid: ada6ca59f43d05c4eaded55c4ec77553, type: 3}
       propertyPath: m_Name
-      value: RoadGeneration
+      value: LevelGenerator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ada6ca59f43d05c4eaded55c4ec77553, type: 3}

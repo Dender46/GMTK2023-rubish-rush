@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2571920570480570506}
   - component: {fileID: 7474121217170794097}
   m_Layer: 0
-  m_Name: RoadGeneration
+  m_Name: LevelGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
