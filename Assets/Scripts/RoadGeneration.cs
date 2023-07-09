@@ -22,7 +22,8 @@ public class RoadGeneration : MonoBehaviour
     TurnDirection m_LastTurn = TurnDirection.Left;
 
     Transform m_RoadBuilder;
-    Transform m_RoadsContainer;
+    Transform m_RoadsParentContainer;
+    Transform m_BuildingsParentContainer;
 
     struct BuildingLocation
     {
@@ -33,20 +34,27 @@ public class RoadGeneration : MonoBehaviour
 
     IEnumerator Start()
     {
+        Setup();
         yield return GenerateRoad();
         yield return GenerateBuildings();
     }
 
-    IEnumerator GenerateRoad()
+    void Setup()
     {
-        m_RoadsContainer = new GameObject("RoadsContainer").transform;
-        m_RoadsContainer.SetParent(transform);
+        m_RoadsParentContainer = new GameObject("C_RoadsContainer").transform;
+        m_RoadsParentContainer.SetParent(transform);
+
+        m_BuildingsParentContainer = new GameObject("C_BuildingsContainer").transform;
+        m_BuildingsParentContainer.SetParent(transform);
 
         m_RoadBuilder = new GameObject("RoadBuilder").transform;
         m_RoadBuilder.SetParent(transform);
+    }
 
+    IEnumerator GenerateRoad()
+    {
         // First road
-        Instantiate(m_RoadStraightPrefab, m_RoadsContainer);
+        Instantiate(m_RoadStraightPrefab, m_RoadsParentContainer);
         m_RoadBuilder.position += m_RoadBuilder.forward * 3.0f;
 
         for (int i = 0; i < m_RoadDistance; i++)
@@ -68,7 +76,7 @@ public class RoadGeneration : MonoBehaviour
                 yield return WaitWithDebugMessage("Set correct rotation for a turn road");
 
                 // Place road in the world space before rotating builder
-                roadInstance.transform.SetParent(m_RoadsContainer, true);
+                roadInstance.transform.SetParent(m_RoadsParentContainer, true);
 
                 m_RoadBuilder.Rotate(Vector3.up, currentTurn == TurnDirection.Left ? -90.0f : 90.0f);
                 yield return WaitWithDebugMessage("Rotated builder");
@@ -99,7 +107,7 @@ public class RoadGeneration : MonoBehaviour
             }
 
             // Place road from RoadBuilder space in to the world space
-            roadInstance.transform.SetParent(m_RoadsContainer, true);
+            roadInstance.transform.SetParent(m_RoadsParentContainer, true);
             yield return WaitWithDebugMessage("Placed tile in a world space");
 
             m_RoadBuilder.position += m_RoadBuilder.forward * 3.0f;
@@ -116,7 +124,7 @@ public class RoadGeneration : MonoBehaviour
 
             var prefab = m_HousePrefabs[Random.Range(0, m_HousePrefabs.Count)];
 
-            var newBuilding = Instantiate(prefab).transform;
+            var newBuilding = Instantiate(prefab, m_BuildingsParentContainer).transform;
             newBuilding.position = pos;
             newBuilding.localScale *= m_HouseScale;
             newBuilding.LookAt(location.lookAt);
