@@ -46,7 +46,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RoadStraightPrefab: {fileID: 2280137208071755766, guid: 6bfdd51b45210604d9145e92f81bd231, type: 3}
   m_RoadTurnPrefab: {fileID: 5893561431435455937, guid: 9da9aace40384c5408da0a69c4bae648, type: 3}
+  m_HousePrefabs:
+  - {fileID: 6347568567140674703, guid: 85f6ceca0565ed14198067189a92dfbc, type: 3}
+  - {fileID: 6747633376883623670, guid: b03b1e5735cd192429d9505395ff5af9, type: 3}
+  - {fileID: 4011216475333517353, guid: 7265c104811a9ea4d92e9c366639497d, type: 3}
+  - {fileID: 7760857118126590694, guid: 679b1488f4fb8c246a739af55b7f48ce, type: 3}
+  - {fileID: 2435125706767312607, guid: 2da9c7ded7cae784e91a27702155f4c6, type: 3}
+  - {fileID: 1765624242669932077, guid: 1f5b6b363ab911b47912b972bd6b3877, type: 3}
+  - {fileID: 2977588591132969124, guid: c147ff53cab347e4da2fcef166b0b735, type: 3}
+  - {fileID: 572868283579810255, guid: af912e050fe57a645980ee5fbe0bbf56, type: 3}
+  - {fileID: 650752424365602740, guid: eeb3afd1331e3e043b89424585691cc2, type: 3}
+  - {fileID: 7364524988140888409, guid: ba5487a5fce05654d8b684618dd7a8a2, type: 3}
+  - {fileID: 8740728227216134546, guid: ba6c55ac27923064780f094955e3e210, type: 3}
+  - {fileID: 1058772243833054590, guid: 8df31d34623e8b443b1f38dad28bddb9, type: 3}
+  - {fileID: 2271799056576591650, guid: c509073fd068cc54dbb01897aade6cb4, type: 3}
   m_RoadDistance: 100
   m_ChanceOfTurning: 0.2
+  m_HouseY: 1.6
+  m_HouseScale: 2.2
   m_Demo_ShowDebugLog: 0
-  m_Demo_WaitForSeconds: 0.1
+  m_Demo_WaitForSeconds: 0

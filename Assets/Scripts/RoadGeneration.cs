@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RoadGeneration : MonoBehaviour
@@ -6,9 +7,12 @@ public class RoadGeneration : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] GameObject m_RoadStraightPrefab;
     [SerializeField] GameObject m_RoadTurnPrefab;
+    [SerializeField] List<GameObject> m_HousePrefabs;
     [Header("Parameters")]
     [SerializeField] int m_RoadDistance = 20;
     [SerializeField] float m_ChanceOfTurning = 0.5f;
+    [SerializeField] float m_HouseY = 2.0f;
+    [SerializeField] float m_HouseScale = 2.2f;
     [Header("Demo")]
     [SerializeField] bool m_Demo_ShowDebugLog = true;
     [SerializeField] float m_Demo_WaitForSeconds = 1;
@@ -20,7 +24,20 @@ public class RoadGeneration : MonoBehaviour
     Transform m_RoadBuilder;
     Transform m_RoadsContainer;
 
+    struct BuildingLocation
+    {
+        public Vector3 pos;
+        public Vector3 lookAt;
+    }
+    List<BuildingLocation> m_PossibleLocationsOfBuildings = new();
+
     IEnumerator Start()
+    {
+        yield return GenerateRoad();
+        yield return GenerateBuildings();
+    }
+
+    IEnumerator GenerateRoad()
     {
         m_RoadsContainer = new GameObject("RoadsContainer").transform;
         m_RoadsContainer.SetParent(transform);
@@ -57,6 +74,28 @@ public class RoadGeneration : MonoBehaviour
                 yield return WaitWithDebugMessage("Rotated builder");
 
                 m_LastTurn = currentTurn;
+
+                // Push new location for buildings
+                //m_PossibleLocationsOfBuildings.Add(new BuildingLocation {
+                //    pos = roadInstance.transform.position,
+                //    dir = roadInstance.transform.position,
+                //});
+            }
+            else
+            {
+                var pos = m_RoadBuilder.position;
+                var lookAt = pos;
+                lookAt.y = m_HouseY;
+
+                // Push new location for buildings
+                m_PossibleLocationsOfBuildings.Add(new BuildingLocation {
+                    pos = pos + m_RoadBuilder.transform.right * 3.0f,
+                    lookAt = lookAt,
+                });
+                m_PossibleLocationsOfBuildings.Add(new BuildingLocation {
+                    pos = pos - m_RoadBuilder.transform.right * 3.0f,
+                    lookAt = lookAt,
+                });
             }
 
             // Place road from RoadBuilder space in to the world space
@@ -66,6 +105,23 @@ public class RoadGeneration : MonoBehaviour
             m_RoadBuilder.position += m_RoadBuilder.forward * 3.0f;
             yield return WaitWithDebugMessage("Moved builder forward");
         }
+    }
+
+    IEnumerator GenerateBuildings()
+    {
+        foreach (var location in m_PossibleLocationsOfBuildings)
+        {
+            var pos = location.pos;
+            pos.y = m_HouseY;
+
+            var prefab = m_HousePrefabs[Random.Range(0, m_HousePrefabs.Count)];
+
+            var newBuilding = Instantiate(prefab).transform;
+            newBuilding.position = pos;
+            newBuilding.localScale *= m_HouseScale;
+            newBuilding.LookAt(location.lookAt);
+        }
+        yield return WaitWithDebugMessage("Completed buildings");
     }
 
     IEnumerator WaitWithDebugMessage(string debugMessage)
