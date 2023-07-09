@@ -2291,7 +2291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_GarbageBagPrefab: {fileID: 2649453464743589715, guid: 20a3c7fefdae4b842baa6cc50cc146bc, type: 3}
-  m_H: 1
+  m_H: 0.45
   m_Gravity: -18
   m_MaxDistanceRaycast: 12
 --- !u!1 &4294033908557036525
