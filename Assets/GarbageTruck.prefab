@@ -2207,6 +2207,7 @@ GameObject:
   - component: {fileID: 139810356964595615}
   - component: {fileID: 261278070}
   - component: {fileID: 261278071}
+  - component: {fileID: 1959725116}
   m_Layer: 0
   m_Name: GarbageTruck
   m_TagString: Untagged
@@ -2283,6 +2284,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5738931, y: 0.5439197, z: 1.2006667}
   m_Center: {x: -0.0024774075, y: 0.28501958, z: -0.0012387037}
+--- !u!114 &1959725116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4222538827214621282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c39098893a8a6944c8c1052d07c7ac24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GarbageBagPrefab: {fileID: 2649453464743589715, guid: 20a3c7fefdae4b842baa6cc50cc146bc, type: 3}
+  m_H: 1
+  m_Gravity: -18
 --- !u!1 &4294033908557036525
 GameObject:
   m_ObjectHideFlags: 0
